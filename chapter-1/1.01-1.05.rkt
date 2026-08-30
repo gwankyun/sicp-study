@@ -9,7 +9,7 @@
 
 (check-equal? (/ 6 2) 3)
 
-;; (+ (* 2 4) (- 4 6))
+#;(+ (* 2 4) (- 4 6))
 (check-equal? (+ (* 2 4) ; 8
                  (- 4 6) ; -2
                  ) ; 6
@@ -21,7 +21,7 @@
 
 (check-equal? b 4)
 
-;; (+ a b (* a b))
+#;(+ a b (* a b))
 (check-equal? (+ a ; 3
                  b ; 4
                  (* a b) ; 12
@@ -30,11 +30,10 @@
 
 (check-equal? (= a b) #f)
 
-#|
-(if (and (> b a) (< b (* a b)))
+
+#;(if (and (> b a) (< b (* a b)))
     a
     b)
-|#
 (check-equal?
  (if (and (> b a) ; #t
           (< b (* a b) ; 12
@@ -44,11 +43,9 @@
      b)
  3)
 
-#|
-(cond ((= a 4) 6)
+#;(cond ((= a 4) 6)
       ((= b 4) (+ 6 7 a))
       (else 25))
-|#
 (check-equal?
  (cond ((= a 4) ; #f
         6)
@@ -58,7 +55,7 @@
        (else 25))
  16)
 
-;; (+ 2 (if (> b a) b a))
+#;(+ 2 (if (> b a) b a))
 (check-equal?
  (+ 2 (if (> b a) ; #t
           b a) ; 4
@@ -113,6 +110,7 @@
       0
       y))
 
+;; 答：
 ;; 應用序是報 p 沒有定義
 ;; 正則序返回 0
 

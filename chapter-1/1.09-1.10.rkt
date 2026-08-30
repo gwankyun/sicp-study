@@ -19,15 +19,27 @@
 (check-equal? (ex1.9-a/+ 4 5) 9)
 
 ; 計算過程
-(inc (+ 3 5))
-(inc (inc (+ 2 5)))
-(inc (inc (inc (+ 1 5))))
-(inc (inc (inc (inc (+ 0 5)))))
-(inc (inc (inc (inc 5))))
-(inc (inc (inc 6)))
-(inc (inc 7))
-(inc 8)
-9
+(let [[r (ex1.9-a/+ 4 5)]]
+  (check-equal? (inc (+ 3 5))
+                r)
+  (check-equal? (inc (+ 3 5))
+                r)
+  (check-equal? (inc (inc (+ 2 5)))
+                r)
+  (check-equal? (inc (inc (inc (+ 1 5))))
+                r)
+  (check-equal? (inc (inc (inc (inc (+ 0 5)))))
+                r)
+  (check-equal? (inc (inc (inc (inc 5))))
+                r)
+  (check-equal? (inc (inc (inc 6)))
+                r)
+  (check-equal? (inc (inc 7))
+                r)
+  (check-equal? (inc 8)
+                r)
+  (check-equal? 9
+                r))
 ; 是遞歸計算過程
 
 (define (ex1.0-b/+ a b)
@@ -36,11 +48,12 @@
       (+ (dec a) (inc b))))
 
 ; 計算過程
-(+ 3 6)
-(+ 2 7)
-(+ 1 8)
-(+ 0 9)
-9
+(let [[r (ex1.0-b/+ 4 5)]]
+  (+ 3 6)
+  (+ 2 7)
+  (+ 1 8)
+  (+ 0 9)
+  (check-equal? 9 r))
 ; 是迭代計算過程
 
 ;;; 練習 1.10
@@ -52,90 +65,163 @@
         [else (A (- x 1)
                  (A x (- y 1)))]))
 
-(A 1 10)
-(A 0 (A 1 9)) ; 1 9
-(A 0 (A 0 (A 1 8))) ; 1 8
-(A 0 (A 0 (A 0 (A 1 7)))) ; 1 7
-(A 0 (A 0 (A 0 (A 0 (A 1 6))))) ; 1 6
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 1 5)))))) ; 1 5
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 4))))))) ; 1 4
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 3)))))))) ; 1 3
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 2))))))))) ; 1 2
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 1)))))))))) ; 1 1
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 2))))))))) ; 0 2
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 4)))))))) ; 0 4
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 8))))))) ; 0 8
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 16)))))) ; 0 16
-(A 0 (A 0 (A 0 (A 0 (A 0 32))))) ; 0 32
-(A 0 (A 0 (A 0 (A 0 64)))) ; 0 64
-(A 0 (A 0 (A 0 128))) ; 0 128
-(A 0 (A 0 256)) ; 0 256
-(A 0 512) ; 0 512
-1024
+(define A-1-10 (A 1 10))
+(check-equal? (A 1 10) ; 1 10
+              A-1-10)
+(check-equal? (A 0 (A 1 9)) ; 1 9
+              A-1-10)
+(check-equal? (A 0 (A 0 (A 1 8))) ; 1 8
+              A-1-10)
+(check-equal? (A 0 (A 0 (A 0 (A 1 7)))) ; 1 7
+              A-1-10)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 1 6))))) ; 1 6
+              A-1-10)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 5)))))) ; 1 5
+              A-1-10)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 4))))))) ; 1 4
+              A-1-10)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 3)))))))) ; 1 3
+              A-1-10)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 2))))))))) ; 1 2
+              A-1-10)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 1)))))))))) ; 1 1
+              A-1-10)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 2))))))))) ; 0 2
+              A-1-10)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 4)))))))) ; 0 4
+              A-1-10)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 8))))))) ; 0 8
+              A-1-10)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 16)))))) ; 0 16
+              A-1-10)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 32))))) ; 0 32
+              A-1-10)
+(check-equal? (A 0 (A 0 (A 0 (A 0 64)))) ; 0 64
+              A-1-10)
+(check-equal? (A 0 (A 0 (A 0 128))) ; 0 128
+              A-1-10)
+(check-equal? (A 0 (A 0 256)) ; 0 256
+              A-1-10)
+(check-equal? (A 0 512) ; 0 512
+              A-1-10)
+(check-equal? 1024
+              A-1-10)
 
-(check-equal? (A 1 10) 1024)
+(define A-2-4 (A 2 4))
+(check-equal? (A 2 4) ; 2 4
+              A-2-4)
+(check-equal? (A 1 (A 2 3)) ; 2 3
+              A-2-4)
+(check-equal? (A 1 (A 1 (A 2 2))) ; 2 2
+              A-2-4)
+(check-equal? (A 1 (A 1 (A 1 (A 2 1)))) ; 2 1
+              A-2-4)
+(check-equal? (A 1 (A 1 (A 1 2))) ; 1 2
+              A-2-4)
+(check-equal? (A 1 (A 1 (A 0 (A 1 1)))) ; 1 2
+              A-2-4)
+(check-equal? (A 1 (A 1 (A 0 2))) ; 0 2
+              A-2-4)
+(check-equal? (A 1 (A 1 4)) ; 1 4
+              A-2-4)
+(check-equal? (A 1 (A 0 (A 1 3))) ; 1 3
+              A-2-4)
+(check-equal? (A 1 (A 0 (A 0 (A 1 2)))) ; 1 2
+              A-2-4)
+(check-equal? (A 1 (A 0 (A 0 (A 0 (A 1 1))))) ; 1 1
+              A-2-4)
+(check-equal? (A 1 (A 0 (A 0 (A 0 2)))) ; 0 2
+              A-2-4)
+(check-equal? (A 1 (A 0 (A 0 4))) ; 0 4
+              A-2-4)
+(check-equal? (A 1 (A 0 8)) ; 0 8
+              A-2-4)
+(check-equal? (A 1 16) ; 1 16
+              A-2-4)
+(check-equal? (A 0 (A 1 15)) ; 1 15
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 1 14))) ; 1 14
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 1 13)))) ; 1 13
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 1 12))))) ; 1 12
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 11)))))) ; 1 11
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 10))))))) ; 1 10
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 9)))))))) ; 1 9
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 8))))))))) ; 1 8
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 7)))))))))) ; 1 7
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 6))))))))))) ; 1 6
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 5)))))))))))) ; 1 5
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 4))))))))))))) ; 1 4
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 3)))))))))))))) ; 1 3
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 2))))))))))))))) ; 1 2
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 1)))))))))))))))) ; 1 1
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 2))))))))))))))) ; 0 2
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 4))))))))))))))
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 8)))))))))))))
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 16))))))))))))
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 32)))))))))))
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 64))))))))))
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 128)))))))))
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 256))))))))
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 512)))))))
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 1024))))))
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 (A 0 2048)))))
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 (A 0 4096))))
+              A-2-4)
+(check-equal? (A 0 (A 0 (A 0 8192)))
+              A-2-4)
+(check-equal? (A 0 (A 0 16384))
+              A-2-4)
+(check-equal? (A 0 32768)
+              A-2-4)
+(check-equal? 65536
+              A-2-4)
 
-(A 2 4) ; 2 4
-(A 1 (A 2 3)) ; 2 3
-(A 1 (A 1 (A 2 2))) ; 2 2
-(A 1 (A 1 (A 1 (A 2 1)))) ; 2 1
-(A 1 (A 1 (A 1 2))) ; 1 2
-(A 1 (A 1 (A 0 (A 1 1)))) ; 1 2
-(A 1 (A 1 (A 0 2))) ; 0 2
-(A 1 (A 1 4)) ; 1 4
-(A 1 (A 0 (A 1 3))) ; 1 3
-(A 1 (A 0 (A 0 (A 1 2)))) ; 1 2
-(A 1 (A 0 (A 0 (A 0 (A 1 1))))) ; 1 1
-(A 1 (A 0 (A 0 (A 0 2)))) ; 0 2
-(A 1 (A 0 (A 0 4))) ; 0 4
-(A 1 (A 0 8)) ; 0 8
-(A 1 16) ; 1 16
-(A 0 (A 1 15)) ; 1 15
-(A 0 (A 0 (A 1 14))) ; 1 14
-(A 0 (A 0 (A 0 (A 1 13)))) ; 1 13
-(A 0 (A 0 (A 0 (A 0 (A 1 12))))) ; 1 12
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 1 11)))))) ; 1 11
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 10))))))) ; 1 10
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 9)))))))) ; 1 9
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 8))))))))) ; 1 8
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 7)))))))))) ; 1 7
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 6))))))))))) ; 1 6
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 5)))))))))))) ; 1 5
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 4))))))))))))) ; 1 4
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 3)))))))))))))) ; 1 3
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 2))))))))))))))) ; 1 2
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 1)))))))))))))))) ; 1 1
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 2))))))))))))))) ; 0 2
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 4))))))))))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 8)))))))))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 16))))))))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 32)))))))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 64))))))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 128)))))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 256))))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 512)))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 (A 0 1024))))))
-(A 0 (A 0 (A 0 (A 0 (A 0 2048)))))
-(A 0 (A 0 (A 0 (A 0 4096))))
-(A 0 (A 0 (A 0 8192)))
-(A 0 (A 0 16384))
-(A 0 32768)
-65536
-
-(check-equal? (A 2 4) 65536)
-
-(A 3 3) ; 3 3
-(A 2 (A 3 2)) ; 3 2
-(A 2 (A 2 (A 3 1))) ; 3 1
-(A 2 (A 2 2)) ; 2 2
-(A 2 (A 1 (A 2 1))) ; 2 1
-(A 2 (A 1 2)) ; 1 2
-(A 2 (A 0 (A 1 1))) ; 1 1
-(A 2 (A 0 2)) ; 0 2
-(A 2 4) ; 2 4
-65536
-
-(check-equal? (A 3 3) 65536)
+(define A-3-3 (A 3 3))
+(check-equal? (A 3 3) ; 3 3
+              A-3-3)
+(check-equal? (A 2 (A 3 2)) ; 3 2
+              A-3-3)
+(check-equal? (A 2 (A 2 (A 3 1))) ; 3 1
+              A-3-3)
+(check-equal? (A 2 (A 2 2)) ; 2 2
+              A-3-3)
+(check-equal? (A 2 (A 1 (A 2 1))) ; 2 1
+              A-3-3)
+(check-equal? (A 2 (A 1 2)) ; 1 2
+              A-3-3)
+(check-equal? (A 2 (A 0 (A 1 1))) ; 1 1
+              A-3-3)
+(check-equal? (A 2 (A 0 2)) ; 0 2
+              A-3-3)
+(check-equal? (A 2 4) ; 2 4
+              A-3-3)
+(check-equal? 65536
+              A-3-3)
 
 ; n * 2
 (define (f n) (A 0 n))
@@ -174,12 +260,8 @@
 ; 2^(h (n - 1))
 (define (h n) (A 2 n))
 
-#|
-(A 1 (A 2 (- n 1)))
-(A 1 (A 1 (A 2 (- n 2))))
-|#
-
 (define (h2 n)
+  ;; 迭代一次就指數增長一次，n -> 2^n -> 2^2^n
   (define (iter r c)
     (if (= c 0)
         r

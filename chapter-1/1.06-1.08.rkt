@@ -47,6 +47,7 @@
 ;;; 練習 1.7
 
 #|
+答：
 數太小了,0.001精度不夠
 數太大了,平方會溢出
 |#
@@ -63,7 +64,7 @@
 (define (ex/good-enough? guess x)
   #;(< (/ (abs-diff prev next) prev)
      0.001)
-  ; abs(prev - next) < max(e_abs, e_rel * prev)
+  ;; abs(prev - next) < max(e_abs, e_rel * prev)
   (< (abs-diff (square guess) x)
      (ex/max 0.001 (* 0.001 (square guess))))
   )
