@@ -80,3 +80,18 @@
 (check-equal? (p 4 2) 6)
 (check-equal? (p 4 3) 4)
 (check-equal? (p 4 4) 1)
+
+;;; 練習 1.13
+
+#|
+證明Fib(n) = (pow(phi, n) - pow(psi, n)) / sqrt(5)
+其中
+Fib(n) =
+ | 0 -> 0
+ | 1 -> 1
+ | _ -> Fib(n - 1) + Fib(n -2)
+
+phi = (1 + sqrt(5)) / 2
+
+psi = (1 - sqrt(5)) / 2
+|#
