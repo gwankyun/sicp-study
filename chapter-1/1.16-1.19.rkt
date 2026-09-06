@@ -37,3 +37,50 @@
 (check-equal? (fast-expt-iter 2 4) 16)
 
 ;;; 練習 1.17
+
+(define (double n) (+ n n))
+
+(define (halve n) (/ n 2))
+
+(define (fast-mul a b)
+  (define (iter i a b)
+    (cond [(= b 0) i]
+          [(even? b) (iter i (double a) (halve b))]
+          [else (iter (+ i a) a (- b 1))]))
+  (iter 0 a b))
+
+(check-equal? (fast-mul 0 0) 0)
+(check-equal? (fast-mul 2 3) 6)
+
+;;; 練習 1.18
+
+;; 直接用1.17的即可。
+
+;;; 練習 1.19
+
+(define (fib-iter a b p q count)
+  (cond [(= count 0) b]
+        [(even? count)
+         (fib-iter a
+                   b
+                   (+ (square p)
+                      (square q))
+                   (+ (* 2 p q)
+                      (square q))
+                   (/ count 2))]
+        [else (fib-iter (+ (* b q) (* a q) (* a p))
+                        (+ (* b p) (* a q))
+                        p
+                        q
+                        (- count 1))]))
+
+(define (fib n)
+  (fib-iter 1 0 0 1 n))
+
+(check-equal? (fib 0) 0)
+(check-equal? (fib 1) 1)
+(check-equal? (fib 2) 1)
+(check-equal? (fib 3) 2)
+(check-equal? (fib 4) 3)
+(check-equal? (fib 5) 5)
+(check-equal? (fib 6) 8)
